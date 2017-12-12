@@ -31,6 +31,8 @@ roslaunch realsense_camera r200_nodelet_default.launch
 #keyboard
 roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 
+#run the vision based navitaiton
+rosrun deploycnn deploycnn.py
 
 https://discuss.pytorch.org/t/loading-weights-for-cpu-model-while-trained-on-gpu/1032
 ```
