@@ -1,0 +1,108 @@
+﻿Basic Setting
+This is a simplified procedure of the turtlebot3 basic instructions. More detailed descriptions can be found here: http://turtlebot3.robotis.com/en/latest/index.html 
+
+
+
+
+If you are NOT using virtual machine (eg. dual boot):
+Connect to LAB WIFI, find the wifi: IU_ROBOTICS, password: robotics@!u
+Otherwise if you are using a virtual machine (not suggested):
+Connect to IU-Secure Also, for virtual machine ubuntu, you need to setup your non-virtual IP, so that you can ping your own machine from other machines, try this:
+        https://askubuntu.com/questions/28901/how-to-configure-my-virtualboxs-ubuntu-ip 
+
+
+
+
+In your laptop PC, do the following:
+
+
+In terminal find your IP address using command: 
+        ifconfig
+should be something like: 156.56.xxx.xxx (lab wifi), or 149.xx…(IU-Secure)
+
+
+In your PC, Open .bashrc (it is located in your home directory) 
+        gedit ~/.bashrc (OR vim ~/.bashrc depending on your editor preference)
+and edit it by appending the following lines. (Replace YOUR_IP with the real IP you found above)
+        export ROS_MASTER_URI=http://YOUR_IP:11311
+        export ROS_HOSTNAME=YOUR_IP
+        export TURTLEBOT3_MODEL=waffle
+
+
+Save and exit .bashrc and
+        source .bashrc
+
+
+In your PC, install the turtlebot catkin_ws packages, and compile them, following the WHOLE procedures of Step 5.3 of this page:
+        http://turtlebot3.robotis.com/en/latest/pc_software.html
+        
+After installation, source the new setup
+        Source devel/setup.bash
+
+
+(Every time you open a new terminal and need to run launch file, you need to source the setup.bash)
+
+
+----        
+Get your assigned unique turtlebot (with the IP labeled in blue duck tape).
+Open another terminal in your PC,  and SSH to the robot:
+        ssh iurobotics@ROBOT_IP
+with password:
+        robotics@!u
+
+
+In your SSH-ed turtlebot terminal:
+find the .bashrc file, and modify the ROS_MASTER_URI :
+Replace the ROS_MASTER_URI IP with your PC IP
+        source .bashrc
+
+
+
+
+Basic Operation:
+
+
+Now let's remotely control the robot with your laptop:
+
+
+In your PC, Run ROS core in a terminal:
+        roscore
+
+
+In your SSH-ed turtlebot terminal:
+Source 
+        Source devel/setup.bash
+Bring up basic turtlebot packages:
+        roslaunch turtlebot3_bringup turtlebot3_robot.launch
+
+
+--
+In your PC, visualize Lidar sensing in Rviz:
+        roslaunch turtlebot3_bringup turtlebot3_model.launch
+
+
+--
+In your PC, Keyboard tele-operation:
+        roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+
+--
+In your PC, do SLAM:
+        roslaunch turtlebot3_slam turtlebot3_slam.launch
+
+
+In your PC, Visualize the constructed SLAM map in Rviz:
+        rosrun rviz rviz -d `rospack find turtlebot3_slam`/rviz/turtlebot3_slam.rviz
+
+
+In your PC, If you want to save SLAM map:
+        rosrun map_server map_saver -f ~/map
+
+
+--
+In your PC, after you have obtained the SLAM map, you can try navigation:
+        roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
+
+
+In your PC, visualize navigation:
+rosrun rviz rviz -d `rospack find turtlebot3_navigation`/rviz/turtlebot3_nav.rviz
