@@ -45,4 +45,4 @@ Satoshi Tsutsui http://homes.soic.indiana.edu/stsutsui/
 - Case 5-2 https://www.youtube.com/watch?v=JfZlrLU_4cY
 
 # etc
- This is performed as a final project of the class [E599 Autonomous Robotics]([http://iurobotics.net/teaching.html) at Indiana Univetisty, taken at Fall 2017. We thank Prof. Liu for helpful advices and discussions. 
+ This is performed as a final project of the class [E599 Autonomous Robotics](http://iurobotics.net/teaching.html) at Indiana Univetisty, taken at Fall 2017. We thank Prof. Liu for helpful advices and discussions. 
