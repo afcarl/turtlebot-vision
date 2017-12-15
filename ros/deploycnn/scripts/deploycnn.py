@@ -30,7 +30,7 @@ def parse_args():
     #Parses the arguments.
     parser = argparse.ArgumentParser(description="deploy")
     parser.add_argument('--speed',type=float,default=0.02,help='velocity. default is 0.02')
-    parser.add_argument('--model',type=str,default="~/catkin_ws/src/deploycnn/scripts/models/model_classify_equalsample",help='model path')
+    parser.add_argument('--model',type=str,default="/home/stsutsui/catkin_ws/src/deploycnn/scripts/models/model_classify_equalsample",help='model path')
     parser.add_argument('--rate',type=int,default=10,help='save frequency. Maximum should be 30 due to camera frequency.')
     return parser.parse_args()
 
@@ -83,6 +83,7 @@ transform = transforms.Compose([
 
 model = CNN1(output_dim=3,regression=False)
 model.load_state_dict(torch.load(args.model, map_location=lambda storage, loc: storage))
+model.eval()
 
 rospy.loginfo("finish loading")
 
@@ -103,8 +104,3 @@ while not rospy.is_shutdown():
     cmd_vel.publish(move_cmd)
     # wait for 0.1 seconds (10 HZ) and publish again
     r.sleep()
-                
-
-
-
-
